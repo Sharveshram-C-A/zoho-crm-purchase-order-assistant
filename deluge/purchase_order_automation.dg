@@ -1,0 +1,21 @@
+string standalone.Purchase_Order_Automation(Map msgs)
+{
+requestBody = Map();
+requestBody.put("model","qwen/qwen3.8-27b");
+requestBody.put("max_tokens",4000);
+messages = List();
+for each  msg in msgs.get("data")
+{
+	messages.add(msg);
+}
+requestBody.put("messages",messages);
+response = invokeurl
+[
+	url :"https://api.groq.com/openai/v1/chat/completions"
+	type :POST
+	body:requestBody.toString()
+	headers:{"Content-Type":"application/json"}
+	connection:"groqconnection_v1"
+];
+return response;
+}

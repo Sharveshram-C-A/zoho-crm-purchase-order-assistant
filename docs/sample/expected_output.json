@@ -1,0 +1,63 @@
+{
+  "Subject": "Q4 Raw Material Replenishment",
+  "PO_Number": "PO-2026-00417",
+  "Vendor_Name": "Orion Industrial Supplies Pvt Ltd",
+  "Requisition_No": "REQ-3381",
+  "Tracking_Number": "BD7842291005",
+  "Contact_Name": "Priya Raman",
+  "Carrier": "BlueDart",
+  "PO_Date": "2026-10-05",
+  "Due_Date": "2026-10-20",
+  "Terms_and_Conditions": "Payment is due within 30 days of delivery and receipt of a valid tax invoice.\nGoods are subject to inspection on receipt; defective items will be returned at the vendor's cost.\nDeliver to the Ship To address above on or before the due date.",
+  "Description": "Please quote the PO number on all invoices and delivery challans.",
+  "Billing_Street": "12 Anna Salai, Mount Road",
+  "Billing_City": "Chennai",
+  "Billing_State": "Tamil Nadu",
+  "Billing_Code": "600002",
+  "Billing_Country": "India",
+  "Shipping_Street": "Plot 7, SIPCOT Industrial Park",
+  "Shipping_City": "Sriperumbudur",
+  "Shipping_State": "Tamil Nadu",
+  "Shipping_Code": "602105",
+  "Shipping_Country": "India",
+  "Sub_Total": 156500,
+  "Discount": 6545,
+  "Tax": 26991.9,
+  "Adjustment": 0.1,
+  "Grand_Total": 176947,
+  "Purchase_Items": [
+    {
+      "Product_Name": "Stainless Steel Sheet 304 (2mm)",
+      "Product_Description": "Grade 304, 1250 x 2500 mm",
+      "Quantity": 50,
+      "List_Price": 1850,
+      "Total": 92500,
+      "Discount": 4625,
+      "Total_After_Discount": 87875,
+      "Tax": 15817.5,
+      "Net_Total": 103692.5
+    },
+    {
+      "Product_Name": "Hex Bolt M10 x 50mm (Box of 100)",
+      "Product_Description": "Zinc plated, Class 8.8",
+      "Quantity": 40,
+      "List_Price": 640,
+      "Total": 25600,
+      "Discount": 0,
+      "Total_After_Discount": 25600,
+      "Tax": 4608,
+      "Net_Total": 30208
+    },
+    {
+      "Product_Name": "Industrial Lubricant Oil 20L",
+      "Product_Description": "ISO VG 68 hydraulic oil",
+      "Quantity": 12,
+      "List_Price": 3200,
+      "Total": 38400,
+      "Discount": 1920,
+      "Total_After_Discount": 36480,
+      "Tax": 6566.4,
+      "Net_Total": 43046.4
+    }
+  ]
+}

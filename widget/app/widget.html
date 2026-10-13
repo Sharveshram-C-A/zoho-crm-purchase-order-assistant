@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Purchase Order Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+
+        <header class="header">
+            <div class="header-icon">PO</div>
+            <div>
+                <h1>Purchase Order Assistant</h1>
+                <p>Extract purchase order details using AI</p>
+            </div>
+        </header>
+
+        <section class="upload-section">
+            <label for="pdfInput">Purchase Order PDF</label>
+
+            <div class="upload-box">
+                <div class="upload-icon">↑</div>
+
+                <p class="upload-title">Choose your purchase order PDF</p>
+                <p class="upload-description">
+                    Select a PDF document from your computer
+                </p>
+
+                <input
+                    type="file"
+                    id="pdfInput"
+                    accept=".pdf,application/pdf"
+                >
+            </div>
+
+            <p id="fileName">No file selected</p>
+        </section>
+
+        <section class="instructions-section">
+            <label for="inputField">
+                Additional Instructions
+                <span class="optional">(Optional)</span>
+            </label>
+
+            <textarea
+                id="inputField"
+                rows="3"
+                placeholder="Example: Pay special attention to taxes and delivery dates."
+            ></textarea>
+        </section>
+
+        <button id="submitBtn" type="button">
+            Extract Purchase Order Details
+        </button>
+
+        <div id="status" role="status" aria-live="polite"></div>
+
+        <section class="results-section">
+            <div class="results-header">
+                <h2>Extracted Details</h2>
+                <span class="review-label">Review required</span>
+            </div>
+
+            <div id="responseBlock" aria-live="polite">
+                <div class="empty-state">
+                    <p>Your extracted purchase order details will appear here.</p>
+                </div>
+            </div>
+        </section>
+
+        <button id="proceedBtn" type="button" class="hidden">
+            Proceed to Purchase Order Form
+        </button>
+
+        <p class="footer-note">
+            AI-extracted details should be reviewed before saving.
+            No record is created by this widget.
+        </p>
+
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededAppSDK.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

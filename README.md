@@ -1,0 +1,78 @@
+# Zoho CRM Purchase Order PDF Assistant
+
+A Zoho CRM widget that turns a purchase order PDF into a CRM Purchase Order. Upload a PDF, review and edit the extracted fields in a form, and click **Proceed** to create the record.
+
+1. The widget reads the PDF in the browser with PDF.js. If the PDF has a text layer, the text is sent to the model. If it is a scan, the first pages are rendered to images and sent instead.
+2. A Deluge function (`purchase_order_automation`) forwards the request to Groq's OpenAI-compatible chat completions endpoint.
+3. The model returns JSON that uses the exact Zoho CRM `Purchase_Orders` field API names.
+4. The widget builds a form with one input per key in that JSON, plus an editable line-items table. You can fix any value, add rows or remove rows.
+5. On **Proceed**, the widget looks up the vendor, contact and products by name, then creates the Purchase Order with `ZOHO.CRM.API.insertRecord`.
+
+## Features
+
+- Extracts header fields, addresses, dates and line items from a PDF
+- Falls back to page images for scanned PDFs
+- Dynamic, editable review form, so nothing is created until you confirm
+- Resolves Vendor, Contact and Product lookups to record IDs
+- Shows Zoho's real error messages when creation fails
+- Keeps the API key in a Zoho connection, never in the widget code
+
+## Repository layout
+
+```
+widget/
+  widget.html                    Widget page (loads the Zoho SDK and PDF.js)
+  app.js                         Extraction, form and record creation logic
+deluge/
+  purchase_order_automation.dg   Function that calls Groq
+samples/
+  sample_purchase_order.pdf      Test PDF with invented data
+  expected_output.json           What the extraction should return for the sample
+docs/
+  setup.md                       Step-by-step setup
+```
+
+## Quick start
+
+Full instructions are in [docs/setup.md](docs/setup.md). In short:
+
+1. Create a Groq API key and a Zoho connection named `groq_connection`.
+2. Add the Deluge function from `deluge/` to your Zoho CRM.
+3. Upload the `widget/` folder as a Zoho widget.
+4. Add a custom button on the Purchase Orders module that opens the widget.
+5. Try it with `samples/sample_purchase_order.pdf`.
+
+## Configuration
+
+| What | Where | Default |
+|---|---|---|
+| Deluge function API name | `DELUGE_FUNCTION_NAME` in `widget/app.js` | `purchase_order_automation` |
+| Model | `requestBody.put("model", ...)` in the Deluge function | `qwen/qwen3.8-27b` |
+| Pages read per PDF | `MAX_PAGES` in `widget/app.js` | `4` |
+| Image size and quality (scanned PDFs) | `MAX_DIMENSION`, `JPEG_QUALITY` | `1200`, `0.6` |
+| Extracted fields | `HEADER_FIELDS`, `LINE_ITEM_FIELDS` in `widget/app.js` | Standard Purchase Orders fields |
+| Fields Zoho calculates (not sent) | `CALCULATED_HEADER`, `CALCULATED_ITEM` | Sub Total, Discount, Tax, Grand Total, and per-line totals |
+
+If your org has renamed or custom fields, update the field maps to match the API names under Setup > Developer Hub > APIs and SDKs > API Names.
+
+## Limitations
+
+- **The vendor and every product must already exist in CRM.** Lookups use an exact name match. If one is missing, the widget tells you which, so you can correct the name or create the record first. It never creates vendors or products on its own. The contact is optional and is left blank if not found.
+- **Picklist values must match your CRM.** Fields such as Status, Carrier, State and Country are picklists in many orgs. A value that is not one of your options is rejected by Zoho.
+- **Totals are calculated by Zoho.** Sub Total, Discount, Tax and Grand Total are shown read-only and are not sent. Zoho computes them from the line items.
+- **Line tax is not carried over.** Line taxes in Zoho come from tax names configured in your org, so the created record may show different tax than the PDF.
+- **Model output can contain small mistakes**, such as a misspelled name. Review the form before you click Proceed.
+- **Groq limits apply.** Free-plan token limits are small, and image input uses many more tokens than text. Check your limits at console.groq.com/settings/limits. The default model is a preview model, so its availability can change. If it disappears, pick another model from your Groq Playground list.
+- **The line-item payload uses the Zoho CRM API v8 shape** (`Product_Details` with `product`, `quantity`, `list_price`). If your org differs, adjust `buildLineItemPayload` in `widget/app.js`.
+
+## Privacy
+
+The contents of the PDF you upload are sent to Groq for extraction. Do not use this with documents you are not allowed to share with a third-party model provider. Review Groq's data policies before using real purchase orders.
+
+## Troubleshooting
+
+See the troubleshooting section in [docs/setup.md](docs/setup.md#troubleshooting).
+
+## License
+
+<LICENSE_NAME> (see [LICENSE](LICENSE)).
