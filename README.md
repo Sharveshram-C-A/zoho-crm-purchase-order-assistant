@@ -10,7 +10,7 @@ A Zoho CRM widget that turns a purchase order PDF into a CRM Purchase Order. Upl
 
 ## Demo Video
 
-**Demo:** [Watch the demo video](https://drive.google.com/file/d/YOUR_FILE_ID/view)
+**Demo:** [Watch the demo video](https://drive.google.com/file/d/1GNIn0T0MVF20Hj9Z0BjxsRHEWPFp0SFU/view?usp=drive_link)
 
 ## Features
 
