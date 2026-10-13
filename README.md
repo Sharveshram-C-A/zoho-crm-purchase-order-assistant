@@ -8,6 +8,10 @@ A Zoho CRM widget that turns a purchase order PDF into a CRM Purchase Order. Upl
 4. The widget builds a form with one input per key in that JSON, plus an editable line-items table. You can fix any value, add rows or remove rows.
 5. On **Proceed**, the widget looks up the vendor, contact and products by name, then creates the Purchase Order with `ZOHO.CRM.API.insertRecord`.
 
+## Demo Video
+
+**Demo:** [Watch the demo video](https://drive.google.com/file/d/YOUR_FILE_ID/view)
+
 ## Features
 
 - Extracts header fields, addresses, dates and line items from a PDF
